@@ -28,7 +28,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.bnbproject.screens.HomeScreen
-import com.example.bnbproject.screens.Page2Screen
+import com.example.bnbproject.screens.MarketSpace
+
 import com.example.bnbproject.screens.Page3Screen
 import com.example.bnbproject.screens.Page4Screen
 import com.example.bnbproject.screens.Page5Screen
@@ -40,7 +41,7 @@ fun BottomNavScreen(navHostController: NavHostController, modifier: Modifier = M
         NavBarItem(
             "Home", NavRoutes.Home.route, Icons.Rounded.Home
         ), NavBarItem(
-            "Page2", NavRoutes.Page2.route, Icons.Rounded.Search
+            "MarketSpace", NavRoutes.MarketSpace.route, Icons.Rounded.Search
         ), NavBarItem(
             "Page3", NavRoutes.Page3.route, Icons.Rounded.Add
         ), NavBarItem(
@@ -98,8 +99,8 @@ fun BottomNavScreen(navHostController: NavHostController, modifier: Modifier = M
             composable(NavRoutes.Home.route) {
                 HomeScreen()
             }
-            composable(NavRoutes.Page2.route) {
-                Page2Screen()
+            composable(NavRoutes.MarketSpace.route) {
+                MarketSpace()
             }
             composable(NavRoutes.Page3.route) {
                 Page3Screen()

@@ -10,7 +10,7 @@ sealed class NavRoutes(val route:String){
 
 
     data object Splash:NavRoutes("Splash")
-    data object Page2:NavRoutes("Page2")
+    data object MarketSpace:NavRoutes("MarketSpace")
     data object Page3:NavRoutes("Page3")
 
     data object Page4:NavRoutes("Page4")

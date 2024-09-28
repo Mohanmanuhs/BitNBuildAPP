@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.bnbproject.screens.MarketSpace
 import com.example.bnbproject.screens.HomeScreen
 import com.example.bnbproject.screens.LoginScreen
 import com.example.bnbproject.screens.Page2Screen
@@ -31,6 +32,8 @@ fun NavGraphScreen(navController: NavHostController, modifier: Modifier = Modifi
         composable(NavRoutes.Home.route) {
             HomeScreen()
         }
+        composable(NavRoutes.MarketSpace.route) {
+            MarketSpace()
         composable(NavRoutes.Login.route){
             LoginScreen(navController)
         }
