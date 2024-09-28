@@ -23,20 +23,18 @@ import com.example.bnbproject.viewmodel.WardrobeViewModel
 
 @Composable
 fun CompartmentInputDialog(
-    showDialog:Boolean, onClick:(Boolean)->Unit,
+    showDialog:Boolean, onClick:(Boolean)->Unit,onDelete:(Int)->Unit,
     wardrobeViewModel: WardrobeViewModel, onAddCompartment: (Compartment) -> Unit) {
 
     val compartment by wardrobeViewModel.compartment.collectAsState()
-    var width by remember { mutableStateOf(compartment.width.toString()) }
-    var height by remember { mutableStateOf(compartment.height.toString()) }
+    var capacity by remember { mutableStateOf(compartment.capacity.toString()) }
+    var filled by remember { mutableStateOf(compartment.filled.toString()) }
     var type by remember { mutableStateOf(compartment.type) }
-    var percentageFiled by remember { mutableStateOf(compartment.percentageFiled.toString()) }
 
     LaunchedEffect(compartment) {
-        width=compartment.width.toString()
-        height=compartment.height.toString()
+        capacity=compartment.capacity.toString()
+        filled=compartment.filled.toString()
         type=compartment.type
-        percentageFiled=compartment.percentageFiled.toString()
     }
     if (showDialog) {
         AlertDialog(
@@ -44,44 +42,31 @@ fun CompartmentInputDialog(
             title = { Text(text = "edit Compartment") },
             text = {
                 Column {
-                    // Width Input
+                    // capacity Input
                     OutlinedTextField(
-                        value = width,
-                        onValueChange = { width = it },
-                        label = { Text(text = "Width") },
+                        value = capacity,
+                        onValueChange = { capacity = it },
+                        label = { Text(text = "capacity") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 8.dp)
                     )
-
-                    // Height Input
+                    // filled Input
                     OutlinedTextField(
-                        value = height,
-                        onValueChange = { height = it },
-                        label = { Text(text = "Height") },
+                        value = filled,
+                        onValueChange = { filled = it },
+                        label = { Text(text = "filled") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 8.dp)
                     )
-
                     // Type Input
                     OutlinedTextField(
                         value = type,
                         onValueChange = { type = it },
                         label = { Text(text = "Type") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 8.dp)
-                    )
-
-                    // Percentage Filled Input
-                    OutlinedTextField(
-                        value = percentageFiled,
-                        onValueChange = { percentageFiled = it },
-                        label = { Text(text = "Percentage Filled") },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 8.dp)
@@ -95,10 +80,9 @@ fun CompartmentInputDialog(
                         val newCompartment =
                             Compartment(
                             id = compartment.id,
-                            width = width.toFloatOrNull() ?: 0f,
-                            height = height.toFloatOrNull() ?: 0f,
-                            type = type,
-                            percentageFiled = percentageFiled.toFloatOrNull() ?: 0f
+                            capacity = capacity.toIntOrNull()?:0,
+                            filled = filled.toIntOrNull() ?: 0,
+                            type = type
                         )
 
                         // Call the provided function to handle adding the new compartment
@@ -112,8 +96,11 @@ fun CompartmentInputDialog(
                 }
             },
             dismissButton = {
-                Button(onClick = { onClick(false) }) {
-                    Text(text = "Cancel")
+                Button(onClick = {
+                    onClick(false)
+                    onDelete(compartment.id)
+                }) {
+                    Text(text = "Delete")
                 }
             }
         )

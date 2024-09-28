@@ -11,7 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
@@ -36,81 +37,64 @@ import com.example.bnbproject.viewmodel.WardrobeViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier,wardrobeViewModel: WardrobeViewModel= viewModel()) {
+fun HomeScreen(modifier: Modifier = Modifier, wardrobeViewModel: WardrobeViewModel = viewModel()) {
     var showDialog by remember { mutableStateOf(false) }
 
     val compartmentList by wardrobeViewModel.compartments.collectAsState()
     var id by remember { mutableStateOf("") }
-    var width by remember { mutableStateOf("") }
-    var height by remember { mutableStateOf("") }
+    var capacity by remember { mutableStateOf("") }
+    var filled by remember { mutableStateOf("") }
     var type by remember { mutableStateOf("") }
-    var percentageFiled by remember { mutableStateOf("") }
 
-    CompartmentInputDialog(showDialog,{showDialog=it},wardrobeViewModel,{wardrobeViewModel.editCompartment(it)})
+    CompartmentInputDialog(
+        showDialog,
+        { showDialog = it },
+        {wardrobeViewModel.deleteCompartment(it.toString())},
+        wardrobeViewModel,
+        { wardrobeViewModel.editCompartment(it) })
 
-    Column(modifier = Modifier.fillMaxSize()){
-        OutlinedTextField(
-            value = id,
-            onValueChange = { id = it },
-            label = { Text(text = "ID") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp)
-        )
-        OutlinedTextField(
-            value = width,
-            onValueChange = { width = it },
-            label = { Text(text = "Width") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp)
-        )
+    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
+            OutlinedTextField(value = id,
+                onValueChange = { id = it },
+                label = { Text(text = "No.") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                modifier = Modifier.fillMaxWidth(.4f).padding(bottom = 8.dp)
+            )
+            OutlinedTextField(value = capacity,
+                onValueChange = { capacity = it },
+                label = { Text(text = "capacity") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                modifier = Modifier.fillMaxWidth(.4f).padding(bottom = 8.dp)
+            )
 
-        OutlinedTextField(
-            value = height,
-            onValueChange = { height = it },
-            label = { Text(text = "Height") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp)
-        )
-
-        OutlinedTextField(
-            value = type,
-            onValueChange = { type = it },
-            label = { Text(text = "Type") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp)
-        )
-
-        OutlinedTextField(
-            value = percentageFiled,
-            onValueChange = { percentageFiled = it },
-            label = { Text(text = "Percentage Filled") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp)
-        )
+            OutlinedTextField(value = filled,
+                onValueChange = { filled = it },
+                label = { Text(text = "filled") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                modifier = Modifier.fillMaxWidth(.4f).padding(bottom = 8.dp)
+            )
+            OutlinedTextField(value = type,
+                onValueChange = { type = it },
+                label = { Text(text = "Type") },
+                modifier = Modifier.fillMaxWidth(.4f).padding(bottom = 8.dp)
+            )
+        }
         Button(onClick = {
             wardrobeViewModel.addNewCompartment(
-            Compartment(
-                id = id.toIntOrNull()?:0,
-                width = width.toFloatOrNull() ?: 0f,
-                height = height.toFloatOrNull() ?: 0f,
-                type = type,
-                percentageFiled = percentageFiled.toFloatOrNull() ?: 0f
-            )
+                Compartment(
+                    id = id.toIntOrNull() ?: 0,
+                    capacity = capacity.toIntOrNull() ?: 0,
+                    filled = filled.toIntOrNull() ?: 0,
+                    type = type
+                )
             )
         }) {
             Text(text = "Add")
         }
 
-        FlowRow(
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(3),
             horizontalArrangement = Arrangement.Start,
             modifier = Modifier
                 .padding(16.dp)
@@ -120,18 +104,19 @@ fun HomeScreen(modifier: Modifier = Modifier,wardrobeViewModel: WardrobeViewMode
         ) {
 
             compartmentList.forEach { cmp ->
-                Box(
-                    modifier = Modifier
+                item {
+                    Box(modifier = Modifier
                         .clickable {
                             wardrobeViewModel.changeCmp(cmp)
                             showDialog = true
                         }
-                        .size(cmp.width.dp, cmp.height.dp)
+                        .weight(1f)
+                        .height(100.dp)
                         .padding(5.dp)
-                        .background(getColorBasedOnPercentage(cmp.percentageFiled)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(text = "${cmp.id}")
+                        .background(getColorBasedOnPercentage(cmp.filled/cmp.capacity.toFloat())),
+                        contentAlignment = Alignment.Center) {
+                        Text(text = "${cmp.id}")
+                    }
                 }
             }
         }

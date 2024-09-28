@@ -23,14 +23,23 @@ class WardrobeViewModel : ViewModel() {
     val compartment: StateFlow<Compartment> = _compartment
 
 
-    fun changeCmp(compartment: Compartment){
-        _compartment.value=compartment
+    fun changeCmp(compartment: Compartment) {
+        _compartment.value = compartment
     }
 
     init {
         fetchCompartments {
             _compartments.value = it
         }
+    }
+
+    fun deleteCompartment(compartmentId: String) {
+        compartmentRef.child(auth.currentUser!!.uid).child(compartmentId).removeValue()
+            .addOnSuccessListener {
+                fetchCompartments {
+                    _compartments.value = it
+                }
+            }
     }
 
     private fun fetchCompartments(onResult: (List<Compartment>) -> Unit) {
@@ -42,13 +51,12 @@ class WardrobeViewModel : ViewModel() {
                         val compartment = compartmentSnapshot.getValue(Compartment::class.java)
 
                         compartment?.let {
-                            result.add(0, compartment)
+                            result.add(compartment)
                             if (result.size == snapshot.childrenCount.toInt()) {
                                 onResult(result)
                             }
                         }
                     }
-
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -79,15 +87,14 @@ class WardrobeViewModel : ViewModel() {
         newCompartmentRef.updateChildren(
             mapOf(
                 "id" to compartment.id,
-                "width" to compartment.width,
-                "height" to compartment.height,
-                "type" to compartment.type,
-                "percentageFiled" to compartment.percentageFiled
+                "filled" to compartment.filled,
+                "capacity" to compartment.capacity,
+                "type" to compartment.type
             )
         ).addOnSuccessListener {
             fetchCompartments {
                 _compartments.value = it
             }
-        }.addOnFailureListener{}
+        }.addOnFailureListener {}
     }
 }

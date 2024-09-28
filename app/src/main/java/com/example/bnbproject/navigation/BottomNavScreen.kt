@@ -3,9 +3,9 @@ package com.example.bnbproject.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Sell
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
@@ -29,10 +29,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.bnbproject.screens.HomeScreen
 import com.example.bnbproject.screens.MarketSpace
-
 import com.example.bnbproject.screens.Page3Screen
-import com.example.bnbproject.screens.Page4Screen
 import com.example.bnbproject.screens.Page5Screen
+import com.example.bnbproject.screens.SellingScreen
 
 @Composable
 fun BottomNavScreen(navHostController: NavHostController, modifier: Modifier = Modifier) {
@@ -45,7 +44,7 @@ fun BottomNavScreen(navHostController: NavHostController, modifier: Modifier = M
         ), NavBarItem(
             "Page3", NavRoutes.Page3.route, Icons.Rounded.Add
         ), NavBarItem(
-            "Page4", NavRoutes.Page4.route, Icons.Rounded.Notifications
+            "Sell", NavRoutes.SellingScreen.route, Icons.Rounded.Sell
         ), NavBarItem(
             "Page5", NavRoutes.Page5.route, Icons.Rounded.Person
         )
@@ -105,8 +104,8 @@ fun BottomNavScreen(navHostController: NavHostController, modifier: Modifier = M
             composable(NavRoutes.Page3.route) {
                 Page3Screen()
             }
-            composable(NavRoutes.Page4.route) {
-                Page4Screen()
+            composable(NavRoutes.SellingScreen.route) {
+                SellingScreen()
             }
             composable(NavRoutes.Page5.route) {
                 Page5Screen()

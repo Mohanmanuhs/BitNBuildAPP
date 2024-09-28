@@ -83,7 +83,7 @@ fun Page3Screen(modifier: Modifier = Modifier, addItemViewModel: AddItemViewMode
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp),
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
@@ -91,7 +91,7 @@ fun Page3Screen(modifier: Modifier = Modifier, addItemViewModel: AddItemViewMode
                 modifier = Modifier.fillParentMaxWidth(.8f).fillParentMaxHeight(.5f), contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = if(imageUri==null) painterResource(id = R.drawable.ic_launcher_background) else rememberAsyncImagePainter(model = imageUri),
+                    painter = if(imageUri==null) painterResource(id = R.drawable.placeholder) else rememberAsyncImagePainter(model = imageUri),
                     contentDescription = "Clothing Image",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillParentMaxWidth(.8f).fillParentMaxHeight(.5f)
@@ -104,7 +104,6 @@ fun Page3Screen(modifier: Modifier = Modifier, addItemViewModel: AddItemViewMode
                     val isGranted = ContextCompat.checkSelfPermission(
                         context, permissionToRequest
                     ) == PackageManager.PERMISSION_GRANTED
-
                     if (isGranted) {
                         launcher.launch("image/*")
                     } else {
@@ -134,8 +133,7 @@ fun Page3Screen(modifier: Modifier = Modifier, addItemViewModel: AddItemViewMode
                 onValueChange = { brandName = it },
                 label = { Text("Brand Name") },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
+                    .fillMaxWidth().padding(top=5.dp),
                 shape = RoundedCornerShape(8.dp)
             )
 
@@ -144,8 +142,7 @@ fun Page3Screen(modifier: Modifier = Modifier, addItemViewModel: AddItemViewMode
                 onValueChange = { type = it },
                 label = { Text("Style") },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
+                    .fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp)
             )
             OutlinedTextField(
@@ -153,8 +150,7 @@ fun Page3Screen(modifier: Modifier = Modifier, addItemViewModel: AddItemViewMode
                 onValueChange = { storeName = it },
                 label = { Text("Shopped From") },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
+                    .fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp)
             )
 
@@ -164,8 +160,7 @@ fun Page3Screen(modifier: Modifier = Modifier, addItemViewModel: AddItemViewMode
                 label = { Text("MRP") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
+                    .fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp)
             )
 
