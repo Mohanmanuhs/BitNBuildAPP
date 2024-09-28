@@ -1,5 +1,7 @@
 package com.example.bnbproject.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -7,12 +9,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.bnbproject.screens.MarketSpace
 import com.example.bnbproject.screens.HomeScreen
+import com.example.bnbproject.screens.LoginScreen
+import com.example.bnbproject.screens.Page2Screen
 import com.example.bnbproject.screens.Page3Screen
 import com.example.bnbproject.screens.Page4Screen
 import com.example.bnbproject.screens.Page5Screen
+import com.example.bnbproject.screens.RegisterScreen
 import com.example.bnbproject.screens.SplashScreen
 
-
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun NavGraphScreen(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(navController = navController, startDestination = NavRoutes.Splash.route) {
@@ -27,9 +32,16 @@ fun NavGraphScreen(navController: NavHostController, modifier: Modifier = Modifi
         composable(NavRoutes.Home.route) {
             HomeScreen()
         }
-
         composable(NavRoutes.MarketSpace.route) {
             MarketSpace()
+        composable(NavRoutes.Login.route){
+            LoginScreen(navController)
+        }
+        composable(NavRoutes.Register.route) {
+            RegisterScreen(navController)
+        }
+        composable(NavRoutes.Page2.route) {
+            Page2Screen()
         }
         composable(NavRoutes.Page3.route) {
             Page3Screen()
