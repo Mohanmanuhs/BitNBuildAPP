@@ -42,7 +42,7 @@ My closet is your one-stop solution for organizing clothes, accessories, and per
 1. Clone the repository:
 
   
-   git clone https://github.com/Mohanmanuhs/CodeFury_7.0.git
+   git clone https://github.com/ShivarajMbhagoji/BitNBuildAPP
    
 2. Open the project in Android Studio.
 
