@@ -81,7 +81,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For any questions or feedback, please contact:
 
 - Email: bhagojishivaraj321@gmail.com
-- GitHub Issues: [link to issues]()
+- GitHub Issues: [link to issues](https://github.com/ShivarajMbhagoji/BitNBuildAPP)
 
 ---
  
