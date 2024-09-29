@@ -8,6 +8,9 @@ My closet is your one-stop solution for organizing clothes, accessories, and per
 ## Drive Link 
 https://drive.google.com/drive/folders/1exvzm5wTYNwD-GHXkUkdHSicgQrLlomj
 
+test email - mohanmanuhs8@gmail.com
+test password - 123456
+
 # Key Features
 
 -On our homepage, you'll find a personalized closet design tool that lets you create custom storage solutions tailored to your style and space constraints.
