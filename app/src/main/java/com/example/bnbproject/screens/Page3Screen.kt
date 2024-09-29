@@ -57,6 +57,7 @@ fun Page3Screen(modifier: Modifier = Modifier, addItemViewModel: AddItemViewMode
     var type by remember { mutableStateOf("") }
     var storeName by remember { mutableStateOf("") }
     var mrp by remember { mutableStateOf("") }
+    var compartmentNo by remember { mutableStateOf("") }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
     val context = LocalContext.current
     val isPosted by addItemViewModel.isPosted.collectAsState()
@@ -88,19 +89,24 @@ fun Page3Screen(modifier: Modifier = Modifier, addItemViewModel: AddItemViewMode
     ) {
         item {
             Box(
-                modifier = Modifier.fillParentMaxWidth(.8f).fillParentMaxHeight(.5f), contentAlignment = Alignment.Center
+                modifier = Modifier
+                    .fillParentMaxWidth(.8f)
+                    .fillParentMaxHeight(.5f),
+                contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = if(imageUri==null) painterResource(id = R.drawable.placeholder) else rememberAsyncImagePainter(model = imageUri),
+                    painter = if (imageUri == null) painterResource(id = R.drawable.placeholder) else rememberAsyncImagePainter(
+                        model = imageUri
+                    ),
                     contentDescription = "Clothing Image",
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillParentMaxWidth(.8f).fillParentMaxHeight(.5f)
+                    modifier = Modifier
+                        .fillParentMaxWidth(.8f)
+                        .fillParentMaxHeight(.5f)
                         .clip(RectangleShape)
                         .border(2.dp, MaterialTheme.colorScheme.primary, RectangleShape)
                 )
-                IconButton(
-                    modifier = Modifier.align(Alignment.BottomEnd),
-                    onClick = {
+                IconButton(modifier = Modifier.align(Alignment.BottomEnd), onClick = {
                     val isGranted = ContextCompat.checkSelfPermission(
                         context, permissionToRequest
                     ) == PackageManager.PERMISSION_GRANTED
@@ -128,39 +134,39 @@ fun Page3Screen(modifier: Modifier = Modifier, addItemViewModel: AddItemViewMode
 
         item {
 
-            OutlinedTextField(
-                value = brandName,
+            OutlinedTextField(value = brandName,
                 onValueChange = { brandName = it },
                 label = { Text("Brand Name") },
                 modifier = Modifier
-                    .fillMaxWidth().padding(top=5.dp),
+                    .fillMaxWidth()
+                    .padding(top = 5.dp),
                 shape = RoundedCornerShape(8.dp)
             )
 
-            OutlinedTextField(
-                value = type,
+            OutlinedTextField(value = type,
                 onValueChange = { type = it },
                 label = { Text("Style") },
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp)
             )
-            OutlinedTextField(
-                value = storeName,
+            OutlinedTextField(value = storeName,
                 onValueChange = { storeName = it },
                 label = { Text("Shopped From") },
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(8.dp)
+            )
+            OutlinedTextField(value = compartmentNo,
+                onValueChange = { compartmentNo = it },
+                label = { Text("Compartment No") },
+                modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp)
             )
 
-            OutlinedTextField(
-                value = mrp,
+            OutlinedTextField(value = mrp,
                 onValueChange = { mrp = it },
                 label = { Text("MRP") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp)
             )
 
@@ -168,7 +174,8 @@ fun Page3Screen(modifier: Modifier = Modifier, addItemViewModel: AddItemViewMode
                 onClick = {
                     addItemViewModel.saveImage(
                         UserItemModel(
-                           type, brandName, storeName, "", mrp,
+                            "",
+                            type,compartmentNo.toIntOrNull()?:0, brandName, storeName, "", mrp,
                         ), imageUri!!
                     )
                 }, colors = ButtonDefaults.buttonColors(

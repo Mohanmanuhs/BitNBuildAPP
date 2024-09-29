@@ -3,8 +3,5 @@ package com.example.bnbproject.ui.components
 import androidx.compose.ui.graphics.Color
 
 fun getColorBasedOnPercentage(percentageFilled: Float): Color {
-    val clampedPercentage = percentageFilled.coerceIn(0f, 1f)
-    val red = (1 - clampedPercentage) * 255
-    val green = clampedPercentage * 255     
-    return Color(green.toInt(), red.toInt(), 0)
+    return if(percentageFilled<=0.7) Color.Green.copy(alpha = .7f) else Color.Red.copy(alpha = .6f)
 }

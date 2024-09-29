@@ -16,11 +16,17 @@ class MarketSpaceViewModel:ViewModel() {
     private val _itemsList = MutableStateFlow<List<SellItemModel>>(emptyList())
     val itemsList:StateFlow<List<SellItemModel>> = _itemsList
 
+    private val _item = MutableStateFlow(SellItemModel())
+    val item:StateFlow<SellItemModel> = _item
 
     init {
         fetchUsers {
             _itemsList.value = it
         }
+    }
+
+    fun fetchItem(id:String) {
+        _item.value= _itemsList.value.find { it.id == id }!!
     }
 
     private fun fetchUsers(onResult:(List<SellItemModel>)->Unit) {

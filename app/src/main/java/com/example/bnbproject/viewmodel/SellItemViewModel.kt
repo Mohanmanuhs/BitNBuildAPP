@@ -30,11 +30,15 @@ class SellItemViewModel : ViewModel() {
         }
     }
 
+
+
+
     private fun saveData(
         sellItemModel: SellItemModel, imageUrl: String
     ) {
-        sellItemRef.push().setValue(sellItemModel.copy(
-            img=imageUrl)).addOnSuccessListener {
+        val ref = sellItemRef.push()
+        ref.setValue(sellItemModel.copy(
+            img=imageUrl, id = UUID.randomUUID().toString())).addOnSuccessListener {
                 _isPosted.value = true
             }.addOnFailureListener {
                 _isPosted.value = false

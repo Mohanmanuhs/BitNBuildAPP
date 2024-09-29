@@ -1,5 +1,6 @@
 package com.example.bnbproject.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.bnbproject.model.UserItemModel
 import com.example.bnbproject.model.UserModel
@@ -21,6 +22,14 @@ class ProfileViewModel : ViewModel() {
 
     private val _itemsList = MutableStateFlow<List<UserItemModel>>(emptyList())
     val itemsList: StateFlow<List<UserItemModel>> = _itemsList
+
+    private val _item = MutableStateFlow(UserItemModel())
+    val item:StateFlow<UserItemModel> = _item
+
+    fun fetchItem(id:String) {
+        Log.d("MyNoneTAG", id)
+        _item.value = _itemsList.value.find { it.id == id }?:UserItemModel()
+    }
 
     fun fetchUser(uid: String) {
         usersRef.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {

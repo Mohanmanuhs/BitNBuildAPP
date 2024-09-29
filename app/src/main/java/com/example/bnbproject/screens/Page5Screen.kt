@@ -27,6 +27,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import com.example.bnbproject.navigation.NavRoutes
 import com.example.bnbproject.ui.components.UserItemCard
 import com.example.bnbproject.viewmodel.ProfileViewModel
 import com.google.firebase.Firebase
@@ -35,7 +37,11 @@ import com.google.firebase.auth.auth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Page5Screen(modifier: Modifier = Modifier,profileViewModel: ProfileViewModel = viewModel()) {
+fun Page5Screen(
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+                profileViewModel: ProfileViewModel = viewModel()
+) {
     val firebaseUser by profileViewModel.users.collectAsState()
     val itemsList by profileViewModel.itemsList.collectAsState()
 
@@ -97,7 +103,8 @@ fun Page5Screen(modifier: Modifier = Modifier,profileViewModel: ProfileViewModel
             ) {
                 items(itemsList) {
                     UserItemCard(it){
-
+                        val routes = NavRoutes.ItemDetails.route.replace("{data}", it.id)
+                        navController.navigate(routes)
                     }
                 }
             }

@@ -11,6 +11,10 @@ sealed class NavRoutes(val route:String){
 
     data object Splash:NavRoutes("Splash")
     data object MarketSpace:NavRoutes("MarketSpace")
+
+    data object MarketDetails:NavRoutes("MarketDetails/{data}")
+    data object ItemDetails:NavRoutes("ItemDetails/{data}")
+
     data object Page3:NavRoutes("Page3")
 
     data object SellingScreen:NavRoutes("SellingScreen")

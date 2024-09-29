@@ -40,13 +40,13 @@ fun BottomNavScreen(navHostController: NavHostController, modifier: Modifier = M
         NavBarItem(
             "Home", NavRoutes.Home.route, Icons.Rounded.Home
         ), NavBarItem(
-            "MarketSpace", NavRoutes.MarketSpace.route, Icons.Rounded.Search
+            "Market", NavRoutes.MarketSpace.route, Icons.Rounded.Search
         ), NavBarItem(
-            "Page3", NavRoutes.Page3.route, Icons.Rounded.Add
+            "Add", NavRoutes.Page3.route, Icons.Rounded.Add
         ), NavBarItem(
             "Sell", NavRoutes.SellingScreen.route, Icons.Rounded.Sell
         ), NavBarItem(
-            "Page5", NavRoutes.Page5.route, Icons.Rounded.Person
+            "Profile", NavRoutes.Page5.route, Icons.Rounded.Person
         )
     )
 
@@ -99,7 +99,7 @@ fun BottomNavScreen(navHostController: NavHostController, modifier: Modifier = M
                 HomeScreen()
             }
             composable(NavRoutes.MarketSpace.route) {
-                MarketSpace()
+                MarketSpace(navHostController)
             }
             composable(NavRoutes.Page3.route) {
                 Page3Screen()
@@ -108,7 +108,7 @@ fun BottomNavScreen(navHostController: NavHostController, modifier: Modifier = M
                 SellingScreen()
             }
             composable(NavRoutes.Page5.route) {
-                Page5Screen()
+                Page5Screen(navHostController)
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.example.bnbproject.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,8 +16,13 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -35,7 +41,7 @@ import com.example.bnbproject.ui.components.getColorBasedOnPercentage
 import com.example.bnbproject.viewmodel.WardrobeViewModel
 
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier, wardrobeViewModel: WardrobeViewModel = viewModel()) {
     var showDialog by remember { mutableStateOf(false) }
@@ -52,70 +58,100 @@ fun HomeScreen(modifier: Modifier = Modifier, wardrobeViewModel: WardrobeViewMod
         {wardrobeViewModel.deleteCompartment(it.toString())},
         wardrobeViewModel,
         { wardrobeViewModel.editCompartment(it) })
-
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
-            OutlinedTextField(value = id,
-                onValueChange = { id = it },
-                label = { Text(text = "No.") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                modifier = Modifier.fillMaxWidth(.4f).padding(bottom = 8.dp)
-            )
-            OutlinedTextField(value = capacity,
-                onValueChange = { capacity = it },
-                label = { Text(text = "capacity") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                modifier = Modifier.fillMaxWidth(.4f).padding(bottom = 8.dp)
-            )
-
-            OutlinedTextField(value = filled,
-                onValueChange = { filled = it },
-                label = { Text(text = "filled") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                modifier = Modifier.fillMaxWidth(.4f).padding(bottom = 8.dp)
-            )
-            OutlinedTextField(value = type,
-                onValueChange = { type = it },
-                label = { Text(text = "Type") },
-                modifier = Modifier.fillMaxWidth(.4f).padding(bottom = 8.dp)
-            )
-        }
-        Button(onClick = {
-            wardrobeViewModel.addNewCompartment(
-                Compartment(
-                    id = id.toIntOrNull() ?: 0,
-                    capacity = capacity.toIntOrNull() ?: 0,
-                    filled = filled.toIntOrNull() ?: 0,
-                    type = type
-                )
-            )
-        }) {
-            Text(text = "Add")
-        }
-
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
-            horizontalArrangement = Arrangement.Start,
+    Scaffold(
+        topBar = {
+            TopAppBar(colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                titleContentColor = MaterialTheme.colorScheme.primary,
+            ), title = {
+                Text("Wardrobe Design")
+            })
+        },
+    ) { innerPadding ->
+        Column(
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-                .height(400.dp)
-                .background(Color.Gray)
+                .fillMaxSize()
+                .padding(innerPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
+                OutlinedTextField(
+                    value = id,
+                    onValueChange = { id = it },
+                    label = { Text(text = "No.") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier
+                        .fillMaxWidth(.4f)
+                        .padding(bottom = 8.dp)
+                )
+                OutlinedTextField(
+                    value = capacity,
+                    onValueChange = { capacity = it },
+                    label = { Text(text = "capacity") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier
+                        .fillMaxWidth(.4f)
+                        .padding(bottom = 8.dp)
+                )
 
-            compartmentList.forEach { cmp ->
-                item {
-                    Box(modifier = Modifier
-                        .clickable {
-                            wardrobeViewModel.changeCmp(cmp)
-                            showDialog = true
+                OutlinedTextField(
+                    value = filled,
+                    onValueChange = { filled = it },
+                    label = { Text(text = "filled") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier
+                        .fillMaxWidth(.4f)
+                        .padding(bottom = 8.dp)
+                )
+                OutlinedTextField(
+                    value = type,
+                    onValueChange = { type = it },
+                    label = { Text(text = "Type") },
+                    modifier = Modifier
+                        .fillMaxWidth(.4f)
+                        .padding(bottom = 8.dp)
+                )
+            }
+            Button(onClick = {
+                wardrobeViewModel.addNewCompartment(
+                    Compartment(
+                        id = id.toIntOrNull() ?: 0,
+                        capacity = capacity.toIntOrNull() ?: 0,
+                        filled = filled.toIntOrNull() ?: 0,
+                        type = type
+                    )
+                )
+            }) {
+                Text(text = "Add")
+            }
+
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
+                    .height(400.dp)
+                    .background(Color.LightGray)
+            ) {
+
+                compartmentList.forEach { cmp ->
+                    item {
+                        Box(modifier = Modifier
+                            .clickable {
+                                wardrobeViewModel.changeCmp(cmp)
+                                showDialog = true
+                            }
+                            .weight(1f)
+                            .height(100.dp)
+                            .padding(5.dp)
+                            .border(2.dp, Color.LightGray)
+                            .background(getColorBasedOnPercentage(cmp.filled / cmp.capacity.toFloat())),
+                            contentAlignment = Alignment.Center) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(text = "${cmp.id} - ${cmp.type}", color = Color.White)
+                            }
                         }
-                        .weight(1f)
-                        .height(100.dp)
-                        .padding(5.dp)
-                        .background(getColorBasedOnPercentage(cmp.filled/cmp.capacity.toFloat())),
-                        contentAlignment = Alignment.Center) {
-                        Text(text = "${cmp.id}")
                     }
                 }
             }

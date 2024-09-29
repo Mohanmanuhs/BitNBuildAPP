@@ -44,7 +44,7 @@ fun UserItemCard(userItem: UserItemModel, onClick: () -> Unit) {
         ) {
             // Image section
             Image(
-                painter = if (userItem.img == "") painterResource(id = R.drawable.ic_launcher_background) else rememberAsyncImagePainter(
+                painter = if (userItem.img == "") painterResource(id = R.drawable.placeholder) else rememberAsyncImagePainter(
                     model = userItem.img
                 ),
                 contentDescription = "dp",
@@ -52,9 +52,7 @@ fun UserItemCard(userItem: UserItemModel, onClick: () -> Unit) {
                     .padding(5.dp)
                     .size(100.dp)
                     .clip(RectangleShape)
-                    .clickable {
-
-                    },
+                    ,
                 contentScale = ContentScale.Crop
             )
             // Details section
@@ -69,12 +67,7 @@ fun UserItemCard(userItem: UserItemModel, onClick: () -> Unit) {
                     color = Color.Black
                 )
                 Text(
-                    text = userItem.brand,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Gray
-                )
-                Text(
-                    text = userItem.shopFrom,
+                    text = userItem.compartment.toString(),
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color.Gray
                 )

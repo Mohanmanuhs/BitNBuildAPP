@@ -210,6 +210,7 @@ fun SellingScreen(
                 Button(onClick = {
                     sellItemViewModel.saveImage(
                         SellItemModel(
+                            "",
                             name,
                             "",
                             type,

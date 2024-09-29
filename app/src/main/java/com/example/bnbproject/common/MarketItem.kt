@@ -1,6 +1,7 @@
 package com.example.bnbproject.common
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,16 +17,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.bnbproject.R
 import com.example.bnbproject.model.SellItemModel
+import com.example.bnbproject.navigation.NavRoutes
 
 @Composable
 fun MarketItem(
-    item: SellItemModel
+    item: SellItemModel, navController: NavHostController,
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth().clickable {
+            val routes = NavRoutes.MarketDetails.route.replace("{data}", item.id)
+            navController.navigate(routes)
+        }
     ) {
         Box(
             modifier = Modifier.size(120.dp),

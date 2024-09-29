@@ -33,7 +33,7 @@ class AddItemViewModel : ViewModel() {
     private fun saveData(
         userItemModel: UserItemModel, imageUrl: String
     ) {
-        userItemsRef.child(auth.currentUser!!.uid).push().setValue(userItemModel.copy(img=imageUrl)).addOnSuccessListener {
+        userItemsRef.child(auth.currentUser!!.uid).push().setValue(userItemModel.copy(id = UUID.randomUUID().toString(), img=imageUrl)).addOnSuccessListener {
                 _isPosted.value = true
             }.addOnFailureListener {
                 _isPosted.value = false
