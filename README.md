@@ -5,6 +5,8 @@
 
 My closet is your one-stop solution for organizing clothes, accessories, and personal items. Personalize it to fit your storage space and preferences. Plus, conveniently shop for new items directly from our app without the hassle of browsing other platforms.
 
+## Drive Link 
+https://drive.google.com/drive/folders/1exvzm5wTYNwD-GHXkUkdHSicgQrLlomj
 
 # Key Features
 
@@ -42,7 +44,8 @@ My closet is your one-stop solution for organizing clothes, accessories, and per
 1. Clone the repository:
 
   
-   git clone https://github.com/ShivarajMbhagoji/BitNBuildAPP
+   git clone https://github.com/Mohanmanuhs/BitNBuildAPP.git
+
    
 2. Open the project in Android Studio.
 
