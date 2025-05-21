@@ -11,6 +11,23 @@ https://drive.google.com/drive/folders/1exvzm5wTYNwD-GHXkUkdHSicgQrLlomj
 test email - mohanmanuhs8@gmail.com
 test password - 123456
 
+## ScreenShots
+<img src="https://github.com/user-attachments/assets/0abc800c-29c7-4f5a-85c8-236005997390" alt="Home Page" width="350" height="600">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/user-attachments/assets/b8139584-ebb4-4db8-bcfe-55dfb9f4b4c4" alt="Home Page" width="350" height="600">
+
+###
+###
+
+<img src="https://github.com/user-attachments/assets/f8fa798c-be0a-43e7-b21f-d3c94cb256a5" alt="Home Page" width="350" height="600">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/user-attachments/assets/d6ddbc78-737c-4086-9855-f6f357faf6b3" alt="Home Page" width="350" height="600">
+
+###
+###
+
+<img src="https://github.com/user-attachments/assets/c1390b64-4474-429c-a879-01f35b552568" alt="Home Page" width="350" height="600">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/user-attachments/assets/b2683642-149b-40c6-b6e5-96bbde621d78" alt="Home Page" width="350" height="600">
+
+
 # Key Features
 
 -On our homepage, you'll find a personalized closet design tool that lets you create custom storage solutions tailored to your style and space constraints.
