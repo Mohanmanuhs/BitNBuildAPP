@@ -40,7 +40,7 @@ test password - 123456
 -Mohan H  S
 -Shivaraj M B
 -Manohar M
--AbhayKumar
+-AbhayaKumar
 
 ## Tech Stack
 
